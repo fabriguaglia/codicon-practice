@@ -23,6 +23,6 @@ export async function uploadFile(file)
 {
     const storageRef = ref(storage, v4())
     await uploadBytes(storageRef, file)
-    const urlImage = await getDownloadURL(storageRef)
-    return urlImage
+    const imageUrl = await getDownloadURL(storageRef)
+    return imageUrl
 }

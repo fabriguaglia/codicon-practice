@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './Form.css';
 import ImageUpload from '../FormImages/ImageUpload';
+import { uploadFile } from '../firebase/config';
 
 function PostForm() {
     const [user, setUser] = useState({
@@ -10,6 +11,42 @@ function PostForm() {
     });
 
     const [usersList, setUsersList] = useState([]);
+
+    const handleChange = (e) => {
+        setUser({ ...user, [e.target.id]: e.target.value });
+    };
+
+    const handleImageUpload = (imageUrl) => {
+        setUser({ ...user, imageUrl });
+    };    
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        try {
+            const imageUrl = await uploadFile(user.imageUrl);
+            setUser({ ...user, imageUrl });
+
+            const options = {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(user),
+            };
+            const res = await fetch(
+                'https://codicon-practice-default-rtdb.firebaseio.com/UserData.json',
+                options
+            );
+            if (res.ok) {
+                alert('Data saved successfully');
+            } else {
+                alert('Error occurred while saving data');
+            }
+        } catch (error) {
+            console.error('Error:', error);
+            alert('Error occurred');
+        }
+    };
 
     useEffect(() => {
         const fetchData = async () => {
@@ -30,45 +67,12 @@ function PostForm() {
         fetchData();
     }, []);
 
-    const handleChange = (e) => {
-        setUser({ ...user, [e.target.id]: e.target.value });
-    };
-
-    const handleImageUpload = (imageUrl) => {
-        setUser({ ...user, imageUrl });
-    };
-
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        try {
-            const options = {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(user),
-            };
-            const res = await fetch(
-                'https://codicon-practice-default-rtdb.firebaseio.com/UserData.json',
-                options
-            );
-            if (res.ok) {
-                alert('Message sent to Firebase');
-            } else {
-                alert('Error occurred');
-            }
-        } catch (error) {
-            console.error('Error:', error);
-            alert('Error occurred');
-        }
-    };
-
     return (
         <>
             <h1 className="titulo">Registro de empleados</h1>
             <div className="form">
                 <div className="container">
-                    <form>
+                    <form onSubmit={handleSubmit}>
                         <input
                             id="name"
                             placeholder="Nombre"
@@ -88,9 +92,7 @@ function PostForm() {
                             onChange={handleChange}
                         />
                         <ImageUpload onImageUpload={handleImageUpload} />
-                        <button type="submit" onClick={handleSubmit}>
-                            Submit
-                        </button>
+                        <button type="submit">Submit</button>
                     </form>
                 </div>
             </div>
@@ -110,7 +112,7 @@ function PostForm() {
                                 <td>{user.name}</td>
                                 <td>{user.date}</td>
                                 <td>
-                                    <img src={user.imageUrl} alt="PetImage" />
+                                    <img src={user.imageUrl} alt="UserImage" />
                                 </td>
                             </tr>
                         ))}
