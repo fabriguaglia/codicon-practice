@@ -102,7 +102,7 @@ function PostForm() {
                     <thead>
                         <tr>
                             <th>Nombre</th>
-                            <th>Fecha</th>
+                            <th>Fecha de nacimiento</th>
                             <th>Imagen</th>
                         </tr>
                     </thead>
