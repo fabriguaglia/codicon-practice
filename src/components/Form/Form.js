@@ -69,7 +69,7 @@ function PostForm() {
 
     return (
         <>
-            <h1 className="titulo">Registro de empleados</h1>
+            <h1 className="titulo">Red de adopción</h1>
             <div className="form">
                 <div className="container">
                     <form onSubmit={handleSubmit}>
@@ -97,7 +97,7 @@ function PostForm() {
                 </div>
             </div>
             <div className="user-table">
-                <h2 className="subtitle">Empleados</h2>
+                <h2 className="subtitle">Mascotas</h2>
                 <table>
                     <thead>
                         <tr>
