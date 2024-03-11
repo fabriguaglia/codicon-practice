@@ -1,7 +1,6 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 import {getStorage, ref, uploadBytes, getDownloadURL} from "firebase/storage"
-import { v4 } from "uuid";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -21,8 +20,10 @@ export const storage = getStorage(app);
 
 export async function uploadFile(file)
 {
-    const storageRef = ref(storage, v4())
-    await uploadBytes(storageRef, file)
-    const imageUrl = await getDownloadURL(storageRef)
-    return imageUrl
+    // Guarda las fotos ahora en la carpeta fotosMascotas
+    const storageRef = ref(storage, 'fotosMascotas/' + file.name)
+    await uploadBytes(storageRef, file).then((snapshot) => {
+      console.log('Uploaded a blob or file!');
+    });
+  return getDownloadURL(storageRef);
 }
