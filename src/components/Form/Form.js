@@ -8,6 +8,7 @@ function PostForm() {
         name: '',
         date: '',
         imageUrl: '',
+        phoneNumber: '',
     });
 
     const [usersList, setUsersList] = useState([]);
@@ -91,6 +92,12 @@ function PostForm() {
                             required
                             onChange={handleChange}
                         />
+                        <input 
+                            type="tel" 
+                            placeholder='Número de telefono'
+                            name="phone"
+                            id="phoneNumber"
+                        />
                         <ImageUpload onImageUpload={handleImageUpload} />
                         <button type="submit">Submit</button>
                     </form>
@@ -103,6 +110,7 @@ function PostForm() {
                         <tr>
                             <th>Nombre</th>
                             <th>Fecha de nacimiento</th>
+                            <th>Número de telefono</th>
                             <th>Imagen</th>
                         </tr>
                     </thead>
@@ -111,8 +119,9 @@ function PostForm() {
                             <tr key={index}>
                                 <td>{user.name}</td>
                                 <td>{user.date}</td>
+                                <td>{user.phoneNumber}</td>
                                 <td>
-                                    <img src={user.imageUrl} alt="UserImage" />
+                                    <img src={user.imageUrl} alt="UserImage" className='foto-mascota'/>
                                 </td>
                             </tr>
                         ))}
