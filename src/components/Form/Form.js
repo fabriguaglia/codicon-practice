@@ -3,11 +3,12 @@ import "./Form.css";
 import { uploadFile } from "../firebase/config";
 
 function PostForm() {
-  const [user, setUser] = useState({
-    name: "",
-    date: "",
-    imageUrl: "",
-  });
+    const [user, setUser] = useState({
+        name: '',
+        date: '',
+        imageUrl: '',
+        phoneNumber: '',
+    });
 
   const [file, setFile] = useState(null);
 
@@ -100,6 +101,12 @@ function PostForm() {
               required
               onChange={handleChange}
             />
+            <input 
+                type="tel" 
+                placeholder='Número de telefono'
+                name="phone"
+                id="phoneNumber"
+            />
             <input type="file" name="" id="" onChange={handleFileChange} />
             <button type="submit">Submit</button>
           </form>
@@ -112,6 +119,7 @@ function PostForm() {
             <tr>
               <th>Nombre</th>
               <th>Fecha de nacimiento</th>
+              <th>Número de telefono</th>
               <th>Imagen</th>
             </tr>
           </thead>
@@ -120,6 +128,7 @@ function PostForm() {
               <tr key={index}>
                 <td>{user.name}</td>
                 <td>{user.date}</td>
+                <td>{user.phoneNumber}</td>
                 <td>
                   <img src={user.imageUrl} alt="UserImage" />
                 </td>

@@ -1,0 +1,43 @@
+body {
+    background-color:palegreen;
+}
+
+.titulo, .subtitle {
+    text-align: center;
+}
+
+.form {
+    text-align: center;
+}
+
+.foto-mascota
+{
+    height: 200px;
+    width: auto;
+}
+
+form input {
+    margin: 10px 20px;
+    padding: 10px 10px;
+    width: 500px;
+    background: none;
+    border: none;
+    outline: none;
+    border: 1px solid #000;
+    color: #0d0d0d;
+}
+
+th, td {
+    padding: 8px;
+    border: 1px solid #ddd;
+    text-align: left;
+}
+
+th, td {
+    background-color: #f2f2f2;
+}
+
+th:not(:last-child),
+td:not(:last-child) {
+    border-right: 1px solid #ddd;
+}
