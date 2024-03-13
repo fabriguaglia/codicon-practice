@@ -28,16 +28,18 @@ function PostForm() {
     try {
       const imageUrl = await uploadFile(file);
       setUser({ ...user, imageUrl });
+      const postData = {
+        name: user.name,
+        date: user.date,
+        imageUrl: imageUrl,
+        phoneNumber: user.phoneNumber,
+      };
       const options = {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
         },
-        body: {
-          name: user.name,
-          date: user.date,
-          imageUrl: imageUrl
-        },
+        body: JSON.stringify(postData)
       };
       const res = await fetch(
           'https://codicon-practice-default-rtdb.firebaseio.com/UserData.json',
@@ -55,7 +57,7 @@ function PostForm() {
   };
 
   useEffect(() => {
-    console.info(user); // Log updated user state
+    console.info(user);
   }, [user]);
 
   useEffect(() => {
@@ -102,11 +104,13 @@ function PostForm() {
               onChange={handleChange}
             />
             <input 
-                type="tel" 
-                placeholder='Número de telefono'
-                name="phone"
-                id="phoneNumber"
-            />
+              type="tel" 
+              placeholder='Número de telefono'
+              name="phone"
+              id="phoneNumber"
+              value={user.phoneNumber}
+              onChange={(e) => setUser({ ...user, phoneNumber: parseInt(e.target.value) || '' })}
+/>
             <input type="file" name="" id="" onChange={handleFileChange} />
             <button type="submit">Submit</button>
           </form>
@@ -130,7 +134,7 @@ function PostForm() {
                 <td>{user.date}</td>
                 <td>{user.phoneNumber}</td>
                 <td>
-                  <img src={user.imageUrl} alt="UserImage" />
+                  <img src={user.imageUrl} alt="UserImage" className="petimage"/>
                 </td>
               </tr>
             ))}

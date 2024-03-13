@@ -2,6 +2,12 @@ body {
     background-color:palegreen;
 }
 
+.petimage
+{
+    width:100px;
+    height:100px;
+}
+
 .titulo, .subtitle {
     text-align: center;
 }
